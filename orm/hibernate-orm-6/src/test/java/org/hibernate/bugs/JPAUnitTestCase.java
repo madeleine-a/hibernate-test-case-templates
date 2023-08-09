@@ -15,9 +15,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-/**
- * This template demonstrates how to develop a test case for Hibernate ORM, using the Java Persistence API.
- */
+
 public class JPAUnitTestCase {
 
 	private EntityManagerFactory entityManagerFactory;
@@ -50,7 +48,7 @@ public class JPAUnitTestCase {
 		query.setParameter("from", Instant.now().minus(2, ChronoUnit.HOURS));
 		query.setParameter("to", Instant.now().minus(1, ChronoUnit.HOURS));
 		List<?> resultList = query.getResultList();
-
+		// Should find entity with a dateValue within the time above
 		Assertions.assertThat(resultList.size()).isEqualTo(1);
 		entityManager.getTransaction().rollback();
 		entityManager.close();

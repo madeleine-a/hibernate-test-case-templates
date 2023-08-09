@@ -9,7 +9,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "INSTANT_ENTITY")
 public class InstantEntity {
-    @Column(name = "DATE_VALUE", columnDefinition = "timestamp")
+    @Column(name = "DATE_VALUE", columnDefinition = "timestamp(9)")
     Instant dateValue;
 
     @Id
