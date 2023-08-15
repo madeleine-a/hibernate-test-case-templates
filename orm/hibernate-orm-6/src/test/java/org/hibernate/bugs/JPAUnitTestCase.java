@@ -22,12 +22,32 @@ public class JPAUnitTestCase {
 
 	@Before
 	public void init() {
-		entityManagerFactory = Persistence.createEntityManagerFactory( "oraclePU" );
+		entityManagerFactory = Persistence.createEntityManagerFactory( "templatePU" );
 	}
 
 	@After
 	public void destroy() {
 		entityManagerFactory.close();
+	}
+
+	@Test
+	public void testUpdate(){
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		Instant dateTime = Instant.now().minus(1, ChronoUnit.HOURS);
+		InstantEntity e = new InstantEntity();
+		e.setDateValue(dateTime);
+		entityManager.persist(e);
+		entityManager.flush();
+		entityManager.clear();
+
+		Query query = entityManager.createNamedQuery("InstantEntity.updateDateValue2");
+		query.setParameter("date", Instant.now());
+		query.executeUpdate();
+
+		entityManager.getTransaction().rollback();
+		entityManager.close();
+
 	}
 
 	// Entities are auto-discovered, so just add them anywhere on class-path
