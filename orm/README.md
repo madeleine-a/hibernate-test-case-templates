@@ -1,3 +1,17 @@
+# Update not having params named as entity attribute - hibernate 6
+Database - H2
+Entity with Instant, choosing to set @JdbcTypeCode(SqlTypes.TIMESTAMP)
+Run the test in JPAUnitTestCase named testUpdate.
+If you have a query like InstantEntity.updateDateValue2NotWorking it does not work. Does not bind correct. 
+
+```
+@NamedQuery(name = "InstantEntity.updateDateValue2NotWorking",
+query = "UPDATE  InstantEntity i SET i.dateValue2 = :date WHERE i.dateValue < :date")
+@NamedQuery(name = "InstantEntity.updateDateValue2Working",
+query = "UPDATE  InstantEntity i SET i.dateValue2 = :dateValue2 WHERE i.dateValue < :dateValue")
+
+```
+
 # Not expected behavior for Instant/TIMESTAMP_UTC
 
 We have Oracle as database, version 19.x set in Timezone GMT+2

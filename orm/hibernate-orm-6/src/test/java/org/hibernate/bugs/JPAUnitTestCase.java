@@ -38,10 +38,10 @@ public class JPAUnitTestCase {
 		entityManager.flush();
 		entityManager.clear();
 
-/*		Query query = entityManager.createNamedQuery("InstantEntity.updateDateValue2Working");
+		Query query = entityManager.createNamedQuery("InstantEntity.updateDateValue2Working");
 		query.setParameter("dateValue", Instant.now());
 		query.setParameter("dateValue2", Instant.now());
-		query.executeUpdate();*/
+		query.executeUpdate();
 
 		Query queryNotWorking = entityManager.createNamedQuery("InstantEntity.updateDateValue2NotWorking");
 		queryNotWorking.setParameter("date", Instant.now());
