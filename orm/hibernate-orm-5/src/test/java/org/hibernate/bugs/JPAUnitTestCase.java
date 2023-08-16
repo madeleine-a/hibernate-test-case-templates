@@ -24,13 +24,39 @@ public class JPAUnitTestCase {
 
 	@Before
 	public void init() {
-		entityManagerFactory = Persistence.createEntityManagerFactory( "oraclePU" );
+		entityManagerFactory = Persistence.createEntityManagerFactory( "templatePU" );
 	}
 
 	@After
 	public void destroy() {
 		entityManagerFactory.close();
 	}
+
+	@Test
+	public void testUpdate(){
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+		Instant dateTime = Instant.now().minus(1, ChronoUnit.HOURS);
+		InstantEntity e = new InstantEntity();
+		e.setDateValue(dateTime);
+		entityManager.persist(e);
+		entityManager.flush();
+		entityManager.clear();
+
+		Query query = entityManager.createNamedQuery("InstantEntity.updateDateValue2Working");
+		query.setParameter("dateValue", Instant.now());
+		query.setParameter("dateValue2", Instant.now());
+		query.executeUpdate();
+
+		Query queryNotWorking = entityManager.createNamedQuery("InstantEntity.updateDateValue2NotWorking");
+		queryNotWorking.setParameter("date", Instant.now());
+		queryNotWorking.executeUpdate();
+
+		entityManager.getTransaction().rollback();
+		entityManager.close();
+
+	}
+
 
 	// Entities are auto-discovered, so just add them anywhere on class-path
 	// Add your tests, using standard JUnit.

@@ -1,11 +1,8 @@
 package org.hibernate.bugs;
 
 import entities.InstantEntity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Query;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
@@ -41,9 +38,14 @@ public class JPAUnitTestCase {
 		entityManager.flush();
 		entityManager.clear();
 
-		Query query = entityManager.createNamedQuery("InstantEntity.updateDateValue2");
-		query.setParameter("date", Instant.now());
-		query.executeUpdate();
+/*		Query query = entityManager.createNamedQuery("InstantEntity.updateDateValue2Working");
+		query.setParameter("dateValue", Instant.now());
+		query.setParameter("dateValue2", Instant.now());
+		query.executeUpdate();*/
+
+		Query queryNotWorking = entityManager.createNamedQuery("InstantEntity.updateDateValue2NotWorking");
+		queryNotWorking.setParameter("date", Instant.now());
+		queryNotWorking.executeUpdate();
 
 		entityManager.getTransaction().rollback();
 		entityManager.close();

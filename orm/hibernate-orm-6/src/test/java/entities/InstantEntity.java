@@ -7,8 +7,11 @@ import org.hibernate.type.SqlTypes;
 import java.time.Instant;
 
 @NamedQuery(name = "InstantEntity.findBetween", query = "SELECT i from InstantEntity i where i.dateValue between :from and :to")
-@NamedQuery(name="InstantEntity.deleteAll", query="DELETE FROM InstantEntity i")
-@NamedQuery(name="InstantEntity.updateDateValue2",  query="UPDATE  InstantEntity i SET i.dateValue2 = :date WHERE i.dateValue < :date")
+@NamedQuery(name = "InstantEntity.deleteAll", query = "DELETE FROM InstantEntity i")
+@NamedQuery(name = "InstantEntity.updateDateValue2NotWorking",
+        query = "UPDATE  InstantEntity i SET i.dateValue2 = :date WHERE i.dateValue < :date")
+@NamedQuery(name = "InstantEntity.updateDateValue2Working",
+        query = "UPDATE  InstantEntity i SET i.dateValue2 = :dateValue2 WHERE i.dateValue < :dateValue")
 @Entity
 @Table(name = "INSTANT_ENTITY")
 public class InstantEntity {
@@ -22,7 +25,8 @@ public class InstantEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    public InstantEntity() {}
+    public InstantEntity() {
+    }
 
     public void setDateValue(Instant dateValue) {
         this.dateValue = dateValue;
