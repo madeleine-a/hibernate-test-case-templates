@@ -1,7 +1,9 @@
 # Update not having params named as entity attribute - hibernate 6
-Database - H2.
-Entity with Instant, choosing to set @JdbcTypeCode(SqlTypes.TIMESTAMP).
+* Database - H2.
+* Entity with Instant, choosing to set @JdbcTypeCode(SqlTypes.TIMESTAMP).
+ 
 Run the test in JPAUnitTestCase named testUpdate.
+
 If you have a query like InstantEntity.updateDateValue2NotWorking it does not work. Does not bind correct.
 
 ```
